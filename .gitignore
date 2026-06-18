@@ -16,3 +16,8 @@ packages/shadcn/src/**/*.js
 packages/shadcn/src/**/*.js.map
 packages/shadcn/src/**/*.d.ts
 packages/shadcn/src/**/*.d.ts.map
+packages/core/src/**/*.js
+packages/core/src/**/*.js.map
+packages/core/src/**/*.d.ts
+packages/core/src/**/*.d.ts.map
+!packages/core/src/vite-env.d.ts

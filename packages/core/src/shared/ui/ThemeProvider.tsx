@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react'
 import { applyTheme, type Theme } from '../lib/theme'
-import '../../shared/tokens/index'
 
 type ThemeContextValue = { theme: Theme }
 

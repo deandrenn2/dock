@@ -1,5 +1,7 @@
-// Tokens (CSS) — imported for side effects
-import './shared/tokens/index'
+import { injectTokens } from './shared/tokens/index'
+
+// Inject CSS custom property tokens on module load
+injectTokens()
 
 // Theme
 export { ThemeProvider } from './shared/ui/ThemeProvider'
