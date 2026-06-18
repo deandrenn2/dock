@@ -1,6 +1,11 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*.d.ts", "**/dist/**", "**/node_modules/**"],
+  "ignorePatterns": [
+    "**/*.d.ts",
+    "**/dist/**",
+    "**/node_modules/**",
+    "apps/test-consumer/**"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "extends": [
@@ -18,5 +23,14 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/vite.config.ts", "**/vite.config.*.ts"],
+      "parserOptions": {
+        "project": null
+      },
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"]
+    }
+  ]
 }
