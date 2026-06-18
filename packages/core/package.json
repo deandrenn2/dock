@@ -31,7 +31,7 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": ["./dist/index.js", "./dist/index.cjs"],
   "repository": {
     "type": "git",
     "url": "https://github.com/deandrenn2/dock.git",

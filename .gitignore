@@ -6,3 +6,13 @@ dist/
 coverage/
 storybook-static/
 IMG_20260611_102025.jpg.jpeg
+
+# Compiled artifacts — prevent .js/.d.ts files from shadowing .tsx source in Vite
+apps/demo/src/**/*.js
+apps/demo/src/**/*.js.map
+apps/demo/src/**/*.d.ts
+apps/demo/src/**/*.d.ts.map
+packages/shadcn/src/**/*.js
+packages/shadcn/src/**/*.js.map
+packages/shadcn/src/**/*.d.ts
+packages/shadcn/src/**/*.d.ts.map
