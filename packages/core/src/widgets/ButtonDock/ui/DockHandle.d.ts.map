@@ -1,1 +1,0 @@
-{"version":3,"file":"DockHandle.d.ts","sourceRoot":"","sources":["DockHandle.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,mBAAmB,EAAE,MAAM,OAAO,CAAA;AAGhD,KAAK,eAAe,GAAG;IACrB,aAAa,EAAE,mBAAmB,CAAC,cAAc,CAAC,CAAA;CACnD,CAAA;AAED,wBAAgB,UAAU,CAAC,EAAE,aAAa,EAAE,EAAE,eAAe,+BAY5D"}
