@@ -1,6 +1,6 @@
 {
   "name": "@deandre-dock/buttons",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Draggable floating action bar for React — keeps buttons within reach on long pages",
   "keywords": [
     "react",
