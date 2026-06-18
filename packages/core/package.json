@@ -1,6 +1,6 @@
 {
   "name": "@deandre-dock/buttons",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Draggable floating action bar for React — keeps buttons within reach on long pages",
   "keywords": [
     "react",
@@ -31,7 +31,10 @@
   "files": [
     "dist"
   ],
-  "sideEffects": ["./dist/index.js", "./dist/index.cjs"],
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/index.cjs"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/deandrenn2/dock.git",
