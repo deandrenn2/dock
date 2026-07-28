@@ -8,7 +8,23 @@
       "Bash(node -e \"const r=JSON.parse\\(require\\('fs'\\).readFileSync\\('dist/registry.json','utf-8'\\)\\); r.items.forEach\\(i => { console.log\\(i.name\\); i.files.forEach\\(f => console.log\\('  ', f.path, f.content ? '✓ content \\('+ f.content.length +' chars\\)' : '✗ no content'\\)\\); }\\);\")",
       "Bash(pnpm add *)",
       "Bash(npm view *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(cat .github/workflows/deploy.yml)",
+      "Bash(cat .github/workflows/pages.yml)",
+      "Bash(pnpm build:demo)",
+      "Bash(git rm *)",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\\\\apps\\\\test-consumer\"; $job = Start-Job { Set-Location \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\\\\apps\\\\test-consumer\"; npm run dev 2>&1 }; Start-Sleep 8; $output = Receive-Job $job; Stop-Job $job; Remove-Job $job; $output)",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\"; git status --short 2>&1 | Where-Object { $_ -notmatch \"packages/shadcn/src\" -and $_ -notmatch \"apps/demo/src/pages\" })",
+      "PowerShell(npm view @deandre-dock/buttons version 2>&1)",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\\\\apps\\\\test-consumer\"; $job = Start-Job { Set-Location \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\\\\apps\\\\test-consumer\"; npm run dev 2>&1 }; Start-Sleep 6; Receive-Job $job; Stop-Job $job; Remove-Job $job)",
+      "Bash(pnpm --filter @deandre-dock/buttons build)",
+      "PowerShell(npm view @deandre-dock/buttons versions --json 2>&1)",
+      "PowerShell(npm view @deandre-dock/buttons dist-tags 2>&1)",
+      "PowerShell(npm view @deandre-dock/buttons@1.0.4 version --registry https://registry.npmjs.org 2>&1)",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\\\\apps\\\\test-consumer\"; $job = Start-Job { Set-Location \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\\\\apps\\\\test-consumer\"; npm run dev 2>&1 }; Start-Sleep 6; Receive-Job $job -Keep | Select-Object -Last 10)",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\"; git ls-files packages/core/src --exclude-standard | Where-Object { $_ -match \"\\\\.\\(js|d\\\\.ts\\)\\(\\\\.map\\)?$\" -and $_ -notmatch \"vite-env\" })",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\"; git ls-files packages/core/src --exclude-standard | Where-Object { $_ -match \"\\\\.\\(js|d\\\\.ts\\)\\(\\\\.map\\)?$\" -and $_ -notmatch \"vite-env\" } | ForEach-Object { git rm --cached $_ } 2>&1 | Measure-Object -Line | Select-Object Lines)",
+      "PowerShell(cd \"d:\\\\LAB\\\\LIBRARIES\\\\button-ui\"; git ls-files packages/core/src | Where-Object { $_ -match \"\\\\.\\(js|d\\\\.ts\\)\\(\\\\.map\\)?$\" -and $_ -notmatch \"vite-env\" } | Measure-Object)"
     ]
   }
 }

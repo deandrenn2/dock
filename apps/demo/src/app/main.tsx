@@ -7,7 +7,7 @@ import './global.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename="/dock">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ThemeProvider>
         <AppRoutes />
       </ThemeProvider>

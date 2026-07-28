@@ -63,7 +63,7 @@ export function App() {
 export function MyPage() {
   return (
     <div>
-      <ButtonDock>
+      <ButtonDock layout="block" align="end">
         <Button variant="primary" leftIcon={<SaveIcon />} onClick={save}>
           Save
         </Button>
@@ -84,11 +84,13 @@ export function MyPage() {
 ### Custom Theme
 
 ```tsx
-<ThemeProvider theme={{
-  colors: { primary: '#7c3aed', danger: '#dc2626' },
-  radius: 'lg',
-  fontFamily: 'Inter, sans-serif',
-}}>
+<ThemeProvider
+  theme={{
+    colors: { primary: '#7c3aed', danger: '#dc2626' },
+    radius: 'lg',
+    fontFamily: 'Inter, sans-serif',
+  }}
+>
   <App />
 </ThemeProvider>
 ```
@@ -99,29 +101,39 @@ export function MyPage() {
 
 ### `<ButtonDock>`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | — | Buttons to display |
-| `showMode` | `boolean` | `false` | Dev badge showing the current dock mode |
+| Prop              | Type                           | Default    | Description                                |
+| ----------------- | ------------------------------ | ---------- | ------------------------------------------ |
+| `children`        | `ReactNode`                    | —          | Buttons to display                         |
+| `showMode`        | `boolean`                      | `false`    | Dev badge showing the current dock mode    |
+| `zIndex`          | `number`                       | —          | Stacking level while the dock is detached  |
+| `layout`          | `'inline' \| 'block'`          | `'inline'` | Inline origin or full-width layout anchor  |
+| `align`           | `'start' \| 'center' \| 'end'` | `'start'`  | Logical alignment inside the anchor        |
+| `className`       | `string`                       | —          | Class applied to the visual dock           |
+| `style`           | `CSSProperties`                | —          | Inline styles applied to the visual dock   |
+| `anchorClassName` | `string`                       | —          | Class applied to the layout anchor         |
+| `anchorStyle`     | `CSSProperties`                | —          | Inline styles applied to the layout anchor |
+
+`align` is most useful with `layout="block"`. The logical values `start` and `end`
+also adapt to right-to-left interfaces.
 
 ### `<Button>`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'danger'` | `'primary'` | Visual style |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Size |
-| `loading` | `boolean` | `false` | Show loading spinner |
-| `leftIcon` | `ReactNode` | — | Icon before label |
-| `rightIcon` | `ReactNode` | — | Icon after label |
-| `iconOnly` | `boolean` | `false` | Square icon-only layout |
+| Prop        | Type                                              | Default     | Description             |
+| ----------- | ------------------------------------------------- | ----------- | ----------------------- |
+| `variant`   | `'primary' \| 'secondary' \| 'ghost' \| 'danger'` | `'primary'` | Visual style            |
+| `size`      | `'xs' \| 'sm' \| 'md' \| 'lg'`                    | `'md'`      | Size                    |
+| `loading`   | `boolean`                                         | `false`     | Show loading spinner    |
+| `leftIcon`  | `ReactNode`                                       | —           | Icon before label       |
+| `rightIcon` | `ReactNode`                                       | —           | Icon after label        |
+| `iconOnly`  | `boolean`                                         | `false`     | Square icon-only layout |
 
 ### Dock States
 
-| State | Behavior |
-|-------|----------|
-| `docked` | Original DOM position — participates in normal layout |
-| `floating` | Absolutely positioned — follows page scroll |
-| `fixed` | Pinned to viewport — scroll doesn't move it |
+| State      | Behavior                                              |
+| ---------- | ----------------------------------------------------- |
+| `docked`   | Original DOM position — participates in normal layout |
+| `floating` | Absolutely positioned — follows page scroll           |
+| `fixed`    | Pinned to viewport — scroll doesn't move it           |
 
 ---
 

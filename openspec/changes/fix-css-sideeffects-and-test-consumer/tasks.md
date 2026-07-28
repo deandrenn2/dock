@@ -10,7 +10,7 @@
 - [x] 2.2 Crear `apps/test-consumer/vite.config.ts` — sin alias para `@deandre-dock/buttons`, puerto 5174
 - [x] 2.3 Crear `apps/test-consumer/index.html` y `src/main.tsx` con `ThemeProvider` envolviendo la app
 - [x] 2.4 Crear `apps/test-consumer/src/App.tsx` — sección "Core" con `ButtonDock` + `Button` (primary, secondary, danger, loading), sin ningún import CSS adicional
-- [ ] 2.5 Verificar que `pnpm install` y `pnpm dev` arrancan el app en `localhost:5174` con estilos cargando correctamente
+- [x] 2.5 Verificar que `pnpm install` y `pnpm dev` arrancan el app en `localhost:5174` con estilos cargando correctamente
 - [ ] 2.6 Confirmar en DevTools que `--dock-color-primary-500` y `--dock-space-4` están definidas en `:root`
 
 ## 3. Shadcn variant en test-consumer

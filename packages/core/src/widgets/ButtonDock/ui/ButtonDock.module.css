@@ -1,6 +1,29 @@
-/* ── Placeholder (reserva el espacio original cuando el dock está despegado) ── */
-.placeholder {
+/* ── Anchor (controla el lugar de origen dentro del layout del consumidor) ── */
+.anchor {
   display: inline-flex;
+  min-width: 0;
+}
+
+.anchorBlock {
+  display: flex;
+  width: 100%;
+}
+
+.alignStart {
+  justify-content: flex-start;
+}
+
+.alignCenter {
+  justify-content: center;
+}
+
+.alignEnd {
+  justify-content: flex-end;
+}
+
+/* ── Placeholder (reserva el espacio original solo cuando el dock está despegado) ── */
+.placeholder {
+  display: none;
   align-items: center;
   justify-content: center;
   border-radius: var(--dock-radius-md);
@@ -16,6 +39,7 @@
 }
 
 .placeholder.visible {
+  display: inline-flex;
   opacity: 1;
   pointer-events: auto;
 }
@@ -29,8 +53,13 @@
 }
 
 @keyframes snapPulse {
-  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--dock-color-primary-500) 18%, transparent); }
-  50%       { box-shadow: 0 0 0 8px color-mix(in srgb, var(--dock-color-primary-500) 8%, transparent); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--dock-color-primary-500) 18%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--dock-color-primary-500) 8%, transparent);
+  }
 }
 
 /* Botón dentro del placeholder para restaurar el dock */
@@ -47,7 +76,9 @@
   border: none;
   border-radius: var(--dock-radius-sm);
   cursor: pointer;
-  transition: color var(--dock-transition-fast), background-color var(--dock-transition-fast);
+  transition:
+    color var(--dock-transition-fast),
+    background-color var(--dock-transition-fast);
   white-space: nowrap;
 }
 
@@ -76,12 +107,16 @@
 }
 
 .root.dragging {
-  box-shadow: 0 24px 32px -8px rgb(0 0 0 / 0.2), 0 8px 12px -4px rgb(0 0 0 / 0.12);
+  box-shadow:
+    0 24px 32px -8px rgb(0 0 0 / 0.2),
+    0 8px 12px -4px rgb(0 0 0 / 0.12);
   cursor: grabbing !important;
 }
 
 .root.snapping {
-  box-shadow: 0 0 0 3px var(--dock-color-primary-400), 0 16px 24px -6px rgb(0 0 0 / 0.18);
+  box-shadow:
+    0 0 0 3px var(--dock-color-primary-400),
+    0 16px 24px -6px rgb(0 0 0 / 0.18);
   border-color: var(--dock-color-primary-400);
 }
 
@@ -96,7 +131,9 @@
   color: var(--dock-color-neutral-400);
   cursor: grab;
   flex-shrink: 0;
-  transition: background-color var(--dock-transition-fast), color var(--dock-transition-fast);
+  transition:
+    background-color var(--dock-transition-fast),
+    color var(--dock-transition-fast);
   touch-action: none;
 }
 
@@ -132,7 +169,9 @@
   cursor: pointer;
   flex-shrink: 0;
   padding: 0;
-  transition: background-color var(--dock-transition-fast), color var(--dock-transition-fast);
+  transition:
+    background-color var(--dock-transition-fast),
+    color var(--dock-transition-fast);
   touch-action: none;
 }
 

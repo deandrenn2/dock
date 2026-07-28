@@ -28,25 +28,31 @@ export function HomePage() {
     <div className={styles.page}>
       <section className={styles.hero}>
         <h1 className={styles.title}>
-          Botones que se adaptan<br />
+          Botones que se adaptan
+          <br />
           <span className={styles.accent}>a tu flujo de trabajo</span>
         </h1>
         <p className={styles.subtitle}>
-          <code>@deandre-dock/buttons</code> — Un sistema de diseño con un ButtonDock flotante
-          que el usuario puede mover, fijar y anclar libremente en pantalla.
+          <code>@deandre-dock/buttons</code> — Un sistema de diseño con un ButtonDock flotante que
+          el usuario puede mover, fijar y anclar libremente en pantalla.
         </p>
       </section>
 
       <section className={styles.demo}>
         <h2 className={styles.sectionTitle}>ButtonDock — pruébalo aquí</h2>
         <p className={styles.hint}>
-          Arrastra el handle <strong>⠿</strong> para mover la barra · Usa el botón 🏠 o suéltala en su lugar para volver
+          Arrastra el handle <strong>⠿</strong> para mover la barra · Usa el botón 🏠 o suéltala en
+          su lugar para volver
         </p>
 
         <div className={styles.dockZone}>
-          <ButtonDock showMode>
-            <Button variant="primary" leftIcon={<GenerateIcon />}>Generar</Button>
-            <Button variant="secondary" leftIcon={<SaveIcon />}>Guardar</Button>
+          <ButtonDock layout="block" align="center" showMode>
+            <Button variant="primary" leftIcon={<GenerateIcon />}>
+              Generar
+            </Button>
+            <Button variant="secondary" leftIcon={<SaveIcon />}>
+              Guardar
+            </Button>
             <Button variant="danger" iconOnly leftIcon={<TrashIcon />} aria-label="Eliminar" />
           </ButtonDock>
         </div>
@@ -61,15 +67,29 @@ export function HomePage() {
           <Button variant="danger">Danger</Button>
         </div>
         <div className={styles.row}>
-          <Button variant="primary" size="xs">XS</Button>
-          <Button variant="primary" size="sm">SM</Button>
-          <Button variant="primary" size="md">MD</Button>
-          <Button variant="primary" size="lg">LG</Button>
+          <Button variant="primary" size="xs">
+            XS
+          </Button>
+          <Button variant="primary" size="sm">
+            SM
+          </Button>
+          <Button variant="primary" size="md">
+            MD
+          </Button>
+          <Button variant="primary" size="lg">
+            LG
+          </Button>
         </div>
         <div className={styles.row}>
-          <Button variant="primary" loading>Cargando</Button>
-          <Button variant="secondary" disabled>Deshabilitado</Button>
-          <Button variant="primary" leftIcon={<SaveIcon />}>Con ícono</Button>
+          <Button variant="primary" loading>
+            Cargando
+          </Button>
+          <Button variant="secondary" disabled>
+            Deshabilitado
+          </Button>
+          <Button variant="primary" leftIcon={<SaveIcon />}>
+            Con ícono
+          </Button>
           <Button variant="ghost" iconOnly leftIcon={<TrashIcon />} aria-label="Eliminar" />
         </div>
       </section>

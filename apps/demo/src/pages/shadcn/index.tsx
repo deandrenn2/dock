@@ -31,8 +31,8 @@ export function ShadcnPage() {
       <section className={styles.hero}>
         <h1 className={styles.title}>Comparativa de variantes</h1>
         <p className={styles.subtitle}>
-          Ambas comparten la misma lógica de drag &amp; dock. La diferencia es
-          el sistema de estilos: tokens CSS propios vs. tokens de{' '}
+          Ambas comparten la misma lógica de drag &amp; dock. La diferencia es el sistema de
+          estilos: tokens CSS propios vs. tokens de{' '}
           <a href="https://ui.shadcn.com" target="_blank" rel="noreferrer">
             Shadcn/ui
           </a>
@@ -47,56 +47,84 @@ export function ShadcnPage() {
             <span className={styles.badge}>@deandre-dock/buttons</span>
             <h2 className={styles.cardTitle}>Core</h2>
             <p className={styles.cardDesc}>
-              Tokens CSS propios (<code>--dock-*</code>), sin dependencias de
-              UI framework. Ideal para proyectos que no usan Tailwind.
+              Tokens CSS propios (<code>--dock-*</code>), sin dependencias de UI framework. Ideal
+              para proyectos que no usan Tailwind.
             </p>
           </header>
 
           <div className={styles.dockZone}>
-            <CoreButtonDock showMode>
-              <Button variant="primary" leftIcon={<ZapIcon />}>Generar</Button>
-              <Button variant="secondary" leftIcon={<SaveIcon />}>Guardar</Button>
+            <CoreButtonDock layout="block" align="center" showMode>
+              <Button variant="primary" leftIcon={<ZapIcon />}>
+                Generar
+              </Button>
+              <Button variant="secondary" leftIcon={<SaveIcon />}>
+                Guardar
+              </Button>
               <Button variant="danger" iconOnly leftIcon={<TrashIcon />} aria-label="Eliminar" />
             </CoreButtonDock>
           </div>
 
           <dl className={styles.meta}>
-            <div><dt>Estilos</dt><dd>CSS Modules + custom props</dd></div>
-            <div><dt>Tailwind</dt><dd>No requerido</dd></div>
-            <div><dt>Theming</dt><dd><code>ThemeProvider</code> / vars CSS</dd></div>
+            <div>
+              <dt>Estilos</dt>
+              <dd>CSS Modules + custom props</dd>
+            </div>
+            <div>
+              <dt>Tailwind</dt>
+              <dd>No requerido</dd>
+            </div>
+            <div>
+              <dt>Theming</dt>
+              <dd>
+                <code>ThemeProvider</code> / vars CSS
+              </dd>
+            </div>
           </dl>
         </section>
 
         {/* ── Shadcn ─────────────────────────────────────────── */}
         <section className={styles.card}>
           <header className={styles.cardHeader}>
-            <span className={[styles.badge, styles.badgeShadcn].join(' ')}>@deandre-dock/buttons-shadcn</span>
+            <span className={[styles.badge, styles.badgeShadcn].join(' ')}>
+              @deandre-dock/buttons-shadcn
+            </span>
             <h2 className={styles.cardTitle}>Shadcn/ui</h2>
             <p className={styles.cardDesc}>
-              Usa los tokens de Shadcn (<code>bg-background</code>,{' '}
-              <code>border-border</code>…). Se instala vía{' '}
-              <code>shadcn add</code> y hereda el tema de tu proyecto.
+              Usa los tokens de Shadcn (<code>bg-background</code>, <code>border-border</code>…). Se
+              instala vía <code>shadcn add</code> y hereda el tema de tu proyecto.
             </p>
           </header>
 
           <div className={[styles.dockZone, styles.dockZoneShadcn].join(' ')}>
-            <ShadcnButtonDock showMode>
+            <ShadcnButtonDock layout="block" align="center" showMode>
               <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md bg-foreground text-background hover:opacity-90 transition-opacity">
                 <ZapIcon /> Generar
               </button>
               <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md border border-border bg-background hover:bg-accent transition-colors">
                 <SaveIcon /> Guardar
               </button>
-              <button className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors" aria-label="Eliminar">
+              <button
+                className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors"
+                aria-label="Eliminar"
+              >
                 <TrashIcon />
               </button>
             </ShadcnButtonDock>
           </div>
 
           <dl className={styles.meta}>
-            <div><dt>Estilos</dt><dd>Tailwind + tokens Shadcn</dd></div>
-            <div><dt>Tailwind</dt><dd>Requerido</dd></div>
-            <div><dt>Theming</dt><dd>Variables CSS de Shadcn</dd></div>
+            <div>
+              <dt>Estilos</dt>
+              <dd>Tailwind + tokens Shadcn</dd>
+            </div>
+            <div>
+              <dt>Tailwind</dt>
+              <dd>Requerido</dd>
+            </div>
+            <div>
+              <dt>Theming</dt>
+              <dd>Variables CSS de Shadcn</dd>
+            </div>
           </dl>
         </section>
       </div>
@@ -106,11 +134,15 @@ export function ShadcnPage() {
         <div className={styles.codeGrid}>
           <div>
             <p className={styles.codeLabel}>Core (npm)</p>
-            <pre className={styles.code}><code>npm i @deandre-dock/buttons</code></pre>
+            <pre className={styles.code}>
+              <code>npm i @deandre-dock/buttons</code>
+            </pre>
           </div>
           <div>
             <p className={styles.codeLabel}>Shadcn registry</p>
-            <pre className={styles.code}><code>npx shadcn add https://dock-ui.dev/r/button-dock</code></pre>
+            <pre className={styles.code}>
+              <code>npx shadcn add https://dock-ui.dev/r/button-dock</code>
+            </pre>
           </div>
         </div>
       </section>

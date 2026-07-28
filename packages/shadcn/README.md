@@ -17,11 +17,11 @@ npx shadcn@latest add https://cdn.jsdelivr.net/npm/@deandre-dock/buttons-shadcn@
 
 This copies into your project:
 
-| File | Description |
-|------|-------------|
-| `components/ui/button-dock.tsx` | Main component |
-| `hooks/use-dock-state.ts` | State machine (docked / floating / fixed) |
-| `hooks/use-drag.ts` | Pointer event drag logic |
+| File                            | Description                               |
+| ------------------------------- | ----------------------------------------- |
+| `components/ui/button-dock.tsx` | Main component                            |
+| `hooks/use-dock-state.ts`       | State machine (docked / floating / fixed) |
+| `hooks/use-drag.ts`             | Pointer event drag logic                  |
 
 Uses your existing Shadcn CSS variables (`--background`, `--border`, `--muted`, etc.). No `ThemeProvider` needed.
 
@@ -30,13 +30,13 @@ Uses your existing Shadcn CSS variables (`--background`, `--border`, `--muted`, 
 ## Usage
 
 ```tsx
-import { Button } from "@/components/ui/button"
-import { ButtonDock } from "@/components/ui/button-dock"
+import { Button } from '@/components/ui/button'
+import { ButtonDock } from '@/components/ui/button-dock'
 
 export function MyPage() {
   return (
     <div>
-      <ButtonDock>
+      <ButtonDock layout="block" align="end">
         <Button onClick={save}>Save</Button>
         <Button variant="outline">Export</Button>
         <Button variant="destructive" size="icon" aria-label="Delete">
@@ -56,21 +56,27 @@ export function MyPage() {
 
 ### `ButtonDock`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | — | Buttons to render |
-| `showMode` | `boolean` | `false` | Dev badge showing the current dock mode |
-| `className` | `string` | — | Additional Tailwind classes |
+| Prop              | Type                           | Default    | Description                                 |
+| ----------------- | ------------------------------ | ---------- | ------------------------------------------- |
+| `children`        | `ReactNode`                    | —          | Buttons to render                           |
+| `showMode`        | `boolean`                      | `false`    | Dev badge showing the current dock mode     |
+| `zIndex`          | `number`                       | —          | Stacking level while the dock is detached   |
+| `layout`          | `"inline" \| "block"`          | `"inline"` | Inline origin or full-width layout anchor   |
+| `align`           | `"start" \| "center" \| "end"` | `"start"`  | Logical alignment inside the anchor         |
+| `className`       | `string`                       | —          | Layout classes applied to the visual dock   |
+| `style`           | `CSSProperties`                | —          | Inline styles applied to the visual dock    |
+| `anchorClassName` | `string`                       | —          | Layout classes applied to the origin anchor |
+| `anchorStyle`     | `CSSProperties`                | —          | Inline styles applied to the origin anchor  |
 
 ---
 
 ## Behavior
 
-| Action | Result |
-|--------|--------|
-| Drag handle `⠿`, release in center | **floating** — moves with page scroll |
-| Drag handle `⠿`, release near edge | **fixed** — pinned to viewport |
-| Double-tap handle | **docked** — returns to original position |
+| Action                             | Result                                    |
+| ---------------------------------- | ----------------------------------------- |
+| Drag handle `⠿`, release in center | **floating** — moves with page scroll     |
+| Drag handle `⠿`, release near edge | **fixed** — pinned to viewport            |
+| Double-tap handle                  | **docked** — returns to original position |
 
 ---
 
