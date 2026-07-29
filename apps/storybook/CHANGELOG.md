@@ -1,5 +1,12 @@
 # storybook
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [889ea69]
+  - @deandre-dock/buttons@1.1.0
+
 ## 0.0.5
 
 ### Patch Changes
