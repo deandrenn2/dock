@@ -4,17 +4,17 @@ Monorepo para el ecosistema `@deandre-dock/buttons` — un ButtonGroup flotante 
 
 ## Paquetes
 
-| Paquete | Versión | Descripción |
-|---|---|---|
-| [`@deandre-dock/buttons`](packages/core/) | [![npm](https://img.shields.io/npm/v/@deandre-dock/buttons)](https://www.npmjs.com/package/@deandre-dock/buttons) | Librería principal (React + tokens propios) |
-| [`@deandre-dock/buttons-shadcn`](packages/shadcn/) | [![npm](https://img.shields.io/npm/v/@deandre-dock/buttons-shadcn)](https://www.npmjs.com/package/@deandre-dock/buttons-shadcn) | Registry para Shadcn/ui |
+| Paquete                                            | Versión                                                                                                                         | Descripción                                 |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| [`@deandre-dock/buttons`](packages/core/)          | [![npm](https://img.shields.io/npm/v/@deandre-dock/buttons)](https://www.npmjs.com/package/@deandre-dock/buttons)               | Librería principal (React + tokens propios) |
+| [`@deandre-dock/buttons-shadcn`](packages/shadcn/) | [![npm](https://img.shields.io/npm/v/@deandre-dock/buttons-shadcn)](https://www.npmjs.com/package/@deandre-dock/buttons-shadcn) | Registry para Shadcn/ui                     |
 
 ## Apps
 
-| App | Descripción |
-|---|---|
-| [`apps/demo`](apps/demo/) | Demo pública en [deandrenn2.github.io/dock](https://deandrenn2.github.io/dock/) |
-| [`apps/storybook`](apps/storybook/) | Documentación interactiva de componentes |
+| App                                 | Descripción                                                                                     |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [`apps/demo`](apps/demo/)           | Demo pública en [deandrenn2.github.io/dock-buttons](https://deandrenn2.github.io/dock-buttons/) |
+| [`apps/storybook`](apps/storybook/) | Documentación interactiva de componentes                                                        |
 
 ---
 
@@ -22,8 +22,8 @@ Monorepo para el ecosistema `@deandre-dock/buttons` — un ButtonGroup flotante 
 
 ```bash
 # Clonar y preparar
-git clone https://github.com/deandrenn2/dock
-cd dock
+git clone https://github.com/deandrenn2/dock-buttons
+cd dock-buttons
 pnpm install
 
 # Iniciar la demo
@@ -65,6 +65,12 @@ pnpm build:core       # build antes de publicar
 ```
 
 CI crea una "Version Packages" PR automáticamente. Merge → publica a npm.
+
+La publicación usa npm Trusted Publishing mediante `.github/workflows/release.yml`.
+Los dos paquetes deben autorizar exactamente el repositorio `deandrenn2/dock-buttons`
+y el workflow `release.yml` en su configuración de Trusted Publisher. Si el repositorio
+cambia de nombre, actualiza también esos campos en npm, los `package.json`, los README y
+la ruta base de GitHub Pages.
 
 ## Contribuir
 

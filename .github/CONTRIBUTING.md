@@ -6,7 +6,7 @@
 
 ## Antes de empezar
 
-- Revisa los [issues abiertos](../../issues) — tu idea puede estar ya en discusión
+- Revisa los [issues abiertos](https://github.com/deandrenn2/dock-buttons/issues) — tu idea puede estar ya en discusión
 - Para cambios grandes, abre un issue primero para discutir el enfoque
 - Para bugs o mejoras pequeñas, puedes ir directo al PR
 
@@ -29,6 +29,7 @@ pnpm dev:storybook     # storybook en http://localhost:6006
 pnpm build:core        # build de la librería
 pnpm test              # tests
 pnpm lint              # linting
+pnpm docs:check        # documentación, enlaces y metadatos
 pnpm format            # formateo con Prettier
 ```
 
@@ -74,6 +75,7 @@ git checkout -b fix/descripcion-del-bug
 ```
 
 Prefijos de branch:
+
 - `feat/` — nueva funcionalidad
 - `fix/` — corrección de bug
 - `docs/` — documentación
@@ -85,7 +87,8 @@ Prefijos de branch:
 - Sigue la arquitectura FSD — cada nuevo componente va en la capa correcta
 - Un componente nuevo requiere: **implementación + story en Storybook + test**
 - Usa los design tokens existentes (`--dock-*`), no valores hardcoded
-- El código debe pasar `pnpm lint` y `pnpm test` sin errores
+- Actualiza los README, stories y ejemplos cuando cambie una API o comportamiento público
+- El código debe pasar `pnpm lint`, `pnpm docs:check` y `pnpm test` sin errores
 
 ### 3. Añade una Storybook story
 
@@ -122,6 +125,7 @@ docs: update ButtonDock API table
 ```
 
 El PR debe incluir:
+
 - Descripción del cambio y por qué
 - Screenshot o video si es un cambio visual
 - El changeset generado
@@ -160,7 +164,7 @@ Tipos válidos: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 ## Reportar un bug
 
-Usa el [template de bug report](../../issues/new?template=bug_report.md) e incluye:
+Usa el [template de bug report](https://github.com/deandrenn2/dock-buttons/issues/new?template=bug_report.md) e incluye:
 
 1. Versión de `@deandre-dock/buttons`
 2. Versión de React
@@ -172,7 +176,7 @@ Usa el [template de bug report](../../issues/new?template=bug_report.md) e inclu
 
 ## Proponer una nueva feature
 
-Usa el [template de feature request](../../issues/new?template=feature_request.md) e incluye:
+Usa el [template de feature request](https://github.com/deandrenn2/dock-buttons/issues/new?template=feature_request.md) e incluye:
 
 1. El problema que resuelve
 2. Tu propuesta de solución
@@ -190,4 +194,4 @@ TL;DR: sé amable, respetuoso y constructivo.
 
 ## Preguntas
 
-Abre un [Discussion](../../discussions) en GitHub — no uses los issues para preguntas generales.
+Abre un [Discussion](https://github.com/deandrenn2/dock-buttons/discussions) en GitHub — no uses los issues para preguntas generales.

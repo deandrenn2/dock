@@ -15,7 +15,7 @@
     "button-dock",
     "react-component"
   ],
-  "homepage": "https://deandrenn2.github.io/dock/",
+  "homepage": "https://deandrenn2.github.io/dock-buttons/",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -37,7 +37,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/deandrenn2/dock.git",
+    "url": "https://github.com/deandrenn2/dock-buttons.git",
     "directory": "packages/core"
   },
   "publishConfig": {

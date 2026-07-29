@@ -10,6 +10,7 @@
     "build:demo": "pnpm --filter demo build",
     "test": "pnpm --filter @deandre-dock/buttons test",
     "lint": "eslint . --ext .ts,.tsx",
+    "docs:check": "node .agents/skills/validate-project-documentation/scripts/validate-docs.mjs",
     "format": "prettier --write .",
     "changeset": "changeset",
     "version-packages": "changeset version",

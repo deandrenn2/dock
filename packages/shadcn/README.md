@@ -3,7 +3,7 @@
 **Shadcn/ui registry for `ButtonDock`** — the draggable floating action bar that keeps buttons within reach on long pages.
 
 [![npm version](https://img.shields.io/npm/v/@deandre-dock/buttons-shadcn)](https://www.npmjs.com/package/@deandre-dock/buttons-shadcn)
-[![license](https://img.shields.io/npm/l/@deandre-dock/buttons-shadcn)](https://github.com/deandrenn2/dock/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/@deandre-dock/buttons-shadcn)](https://github.com/deandrenn2/dock-buttons/blob/main/LICENSE)
 
 This is a [shadcn/ui registry](https://ui.shadcn.com/docs/registry) package. Installing it **copies the component source directly into your project** — no runtime npm dependency, full ownership of the code.
 
@@ -77,12 +77,12 @@ height.
 
 ## Behavior
 
-| Action                             | Result                                    |
-| ---------------------------------- | ----------------------------------------- |
-| Drag a docked or floating dock | **floating** — remains inside its bounds     |
-| Use the pin control            | Toggles explicitly between floating/fixed   |
-| Drag an already fixed dock     | **fixed** — changes position, not mode       |
-| Double-tap handle              | **docked** — returns to original position   |
+| Action                         | Result                                    |
+| ------------------------------ | ----------------------------------------- |
+| Drag a docked or floating dock | **floating** — remains inside its bounds  |
+| Use the pin control            | Toggles explicitly between floating/fixed |
+| Drag an already fixed dock     | **fixed** — changes position, not mode    |
+| Double-tap handle              | **docked** — returns to original position |
 
 ---
 
@@ -92,8 +92,8 @@ Use [`@deandre-dock/buttons`](https://www.npmjs.com/package/@deandre-dock/button
 
 ## Live Demo
 
-[deandrenn2.github.io/dock](https://deandrenn2.github.io/dock/)
+[deandrenn2.github.io/dock-buttons](https://deandrenn2.github.io/dock-buttons/)
 
 ## License
 
-MIT © [dock-buttons contributors](https://github.com/deandrenn2/dock/graphs/contributors)
+MIT © [dock-buttons contributors](https://github.com/deandrenn2/dock-buttons/graphs/contributors)

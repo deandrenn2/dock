@@ -17,6 +17,7 @@ pnpm build:demo        # Build the demo application
 pnpm test              # Run Vitest (core package)
 pnpm test:watch        # Watch mode (run from packages/core)
 pnpm lint              # ESLint across all packages
+pnpm docs:check        # Validate active docs, links, URLs, and package metadata
 pnpm format            # Prettier formatting
 
 # Release
@@ -35,7 +36,7 @@ apps/
   storybook/   Storybook 8.6 component docs
 ```
 
-All packages use `pnpm` (v11.1.2). The root `tsconfig.base.json` sets path alias `@deandre-dock/buttons` → `packages/core/src` for local development.
+All packages use `pnpm` (v11.7.0). The root `tsconfig.base.json` sets path alias `@deandre-dock/buttons` → `packages/core/src` for local development.
 
 ## Architecture: Feature-Sliced Design (FSD)
 
@@ -45,18 +46,18 @@ All packages use `pnpm` (v11.1.2). The root `tsconfig.base.json` sets path alias
 shared ← entities ← features ← widgets
 ```
 
-| Layer | Content |
-|-------|---------|
-| `shared/` | CSS tokens, `ThemeProvider`, `cn()` utility, `applyTheme()` |
-| `entities/` | `Button` — dumb presentational component only |
+| Layer       | Content                                                              |
+| ----------- | -------------------------------------------------------------------- |
+| `shared/`   | CSS tokens, `ThemeProvider`, `cn()` utility, `applyTheme()`          |
+| `entities/` | `Button` — dumb presentational component only                        |
 | `features/` | `useDrag` (pointer events, snapping), `useDockState` (state machine) |
-| `widgets/` | `ButtonDock` — composes the above into the final deliverable |
+| `widgets/`  | `ButtonDock` — composes the above into the final deliverable         |
 
 Never import from a higher layer into a lower one (e.g., no `features` import inside `entities`).
 
 ## Key Components
 
-**`ButtonDock`** (`widgets/ButtonDock`) — the main export. A draggable, dockable floating button tray. States: `docked → dragging → floating → fixed`. Renders via a portal when detached. Near-edge detection (48 px) auto-switches to `fixed` mode.
+**`ButtonDock`** (`widgets/ButtonDock`) — the main export. A draggable, dockable floating button tray. States: `docked → dragging → floating → fixed`. Renders via a portal when detached. Pinning is explicit: dragging a fixed dock keeps it fixed, while floating docks remain floating and respect their document bounds.
 
 **`Button`** (`entities/button`) — primitive button with `variant` (primary | secondary | ghost | danger), `size` (xs | sm | md | lg), loading spinner, and icon support.
 
@@ -75,9 +76,16 @@ The core package builds dual-format (`dist/index.js` ESM + `dist/index.cjs` CJS)
 ## Versioning & Publishing
 
 This project uses [Changesets](https://github.com/changesets/changesets). Before merging a feature or fix:
+
 1. `pnpm changeset` — select bump type and describe the change
 2. Commit the generated `.changeset/*.md` file with the code
 3. CI creates a "Version Packages" PR; merging it triggers npm publish
+
+## Documentation Gate
+
+Use `$validate-project-documentation` for every code, behavior, public API, demo, workflow,
+package metadata, repository rename, PR, and release change. Run `pnpm docs:check` before
+committing or publishing. CI runs the same deterministic validation on every push and PR.
 
 ## Code Style
 

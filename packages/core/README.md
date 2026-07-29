@@ -3,7 +3,7 @@
 **A draggable floating action bar for React.** Keeps contextual buttons within reach no matter how far the user has scrolled.
 
 [![npm version](https://img.shields.io/npm/v/@deandre-dock/buttons)](https://www.npmjs.com/package/@deandre-dock/buttons)
-[![license](https://img.shields.io/npm/l/@deandre-dock/buttons)](https://github.com/deandrenn2/dock/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/@deandre-dock/buttons)](https://github.com/deandrenn2/dock-buttons/blob/main/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dm/@deandre-dock/buttons)](https://www.npmjs.com/package/@deandre-dock/buttons)
 
 ---
@@ -156,8 +156,8 @@ See [`@deandre-dock/buttons-shadcn`](https://www.npmjs.com/package/@deandre-dock
 
 ## Live Demo
 
-[deandrenn2.github.io/dock](https://deandrenn2.github.io/dock/)
+[deandrenn2.github.io/dock-buttons](https://deandrenn2.github.io/dock-buttons/)
 
 ## License
 
-MIT © [dock-buttons contributors](https://github.com/deandrenn2/dock/graphs/contributors)
+MIT © [dock-buttons contributors](https://github.com/deandrenn2/dock-buttons/graphs/contributors)

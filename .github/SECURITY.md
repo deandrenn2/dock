@@ -2,17 +2,19 @@
 
 ## Versiones soportadas
 
-| Versión | Soporte |
-|---|---|
-| 0.x.x | ✅ Activa |
+| Versión | Soporte        |
+| ------- | -------------- |
+| 1.x.x   | ✅ Activa      |
+| 0.x.x   | ❌ Sin soporte |
 
 ## Reportar una vulnerabilidad
 
 **No abras un issue público para reportar vulnerabilidades de seguridad.**
 
-Envía un reporte privado usando [GitHub Security Advisories](../../security/advisories/new) o escribe directamente a los mantenedores del proyecto.
+Envía un reporte privado usando [GitHub Security Advisories](https://github.com/deandrenn2/dock-buttons/security/advisories/new) o escribe directamente a los mantenedores del proyecto.
 
 Incluye:
+
 - Descripción de la vulnerabilidad
 - Pasos para reproducirla
 - Impacto potencial

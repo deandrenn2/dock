@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Validar documentacion del proyecto'
+  short_description: 'Verifica documentacion, enlaces y metadatos'
+  default_prompt: 'Usa $validate-project-documentation para comprobar que la documentacion y los metadatos reflejan los cambios del repositorio.'
