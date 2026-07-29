@@ -60,7 +60,7 @@ export function GradebookPage() {
           <p className={styles.subtitle}>Grado 8° — Período 2 · {STUDENTS.length} estudiantes · {SUBJECTS.length} materias</p>
         </div>
 
-        <ButtonDock showMode>
+        <ButtonDock sessionStorageKey="demo-gradebook-button-dock" showMode>
           <Button variant="ghost" leftIcon={<FilterIcon />} size="sm">Filtrar</Button>
           <Button variant="secondary" leftIcon={<ExportIcon />} size="sm">Exportar</Button>
           <Button variant="ghost" leftIcon={<PrintIcon />} size="sm">Imprimir</Button>
@@ -77,7 +77,9 @@ export function GradebookPage() {
       </div>
 
       <div className={styles.hint}>
-        ☝ Arrastra el handle de la barra de acciones para moverla. Usa el botón 🏠 o suéltala en su lugar reservado para volver.
+        ☝ Arrastra el handle de la barra de acciones para moverla. Recarga esta página para
+        comprobar que conserva su estado y posición durante la sesión. Usa el botón 🏠 o suéltala en
+        su lugar reservado para volver.
       </div>
 
       <div className={styles.tableWrapper}>

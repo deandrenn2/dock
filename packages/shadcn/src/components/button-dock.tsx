@@ -5,14 +5,102 @@ import { createPortal } from 'react-dom'
 import { cn } from '@/lib/utils'
 import { useDockState } from '../hooks/use-dock-state'
 import { useDrag } from '../hooks/use-drag'
-import type { DockMode, Position } from '../hooks/use-dock-state'
+import type { DockMode, DockState, Position } from '../hooks/use-dock-state'
 
 const EDGE_MARGIN = 8
 
-function clampToViewport(x: number, y: number, w: number, h: number): Position {
+function resolveDropMode(originMode: DockMode): DockMode {
+  return originMode === 'fixed' ? 'fixed' : 'floating'
+}
+
+function isPosition(value: unknown): value is Position {
+  if (!value || typeof value !== 'object') return false
+  const position = value as Record<string, unknown>
+  return (
+    typeof position['x'] === 'number' &&
+    Number.isFinite(position['x']) &&
+    typeof position['y'] === 'number' &&
+    Number.isFinite(position['y'])
+  )
+}
+
+function parsePersistedDockState(value: string | null): DockState | null {
+  if (!value) return null
+
+  try {
+    const parsed = JSON.parse(value) as unknown
+    if (!parsed || typeof parsed !== 'object') return null
+    const candidate = parsed as Record<string, unknown>
+
+    if (candidate['version'] !== 1) return null
+    if (candidate['mode'] === 'docked') {
+      return { mode: 'docked', position: null }
+    }
+    if (
+      (candidate['mode'] === 'floating' || candidate['mode'] === 'fixed') &&
+      isPosition(candidate['position'])
+    ) {
+      return { mode: candidate['mode'], position: candidate['position'] }
+    }
+  } catch {
+    return null
+  }
+
+  return null
+}
+
+function serializeDockState(mode: DockMode, position: Position | null) {
+  if (mode === 'dragging') return null
+  return JSON.stringify({
+    version: 1,
+    mode,
+    position: mode === 'docked' ? null : position,
+  })
+}
+
+function clampPositionToBounds(
+  position: Position,
+  item: { width: number; height: number },
+  bounds: { width: number; height: number },
+): Position {
+  const maxX = Math.max(EDGE_MARGIN, bounds.width - item.width - EDGE_MARGIN)
+  const maxY = Math.max(EDGE_MARGIN, bounds.height - item.height - EDGE_MARGIN)
+
   return {
-    x: Math.max(EDGE_MARGIN, Math.min(x, window.innerWidth - w - EDGE_MARGIN)),
-    y: Math.max(EDGE_MARGIN, Math.min(y, window.innerHeight - h - EDGE_MARGIN)),
+    x: Math.max(EDGE_MARGIN, Math.min(position.x, maxX)),
+    y: Math.max(EDGE_MARGIN, Math.min(position.y, maxY)),
+  }
+}
+
+function clampToViewport(x: number, y: number, w: number, h: number): Position {
+  return clampPositionToBounds(
+    { x, y },
+    { width: w, height: h },
+    { width: window.innerWidth, height: window.innerHeight },
+  )
+}
+
+function getDocumentBounds() {
+  const html = document.documentElement
+  const body = document.body
+
+  return {
+    width: Math.max(
+      html.clientWidth,
+      html.scrollWidth,
+      html.offsetWidth,
+      body?.clientWidth ?? 0,
+      body?.scrollWidth ?? 0,
+      body?.offsetWidth ?? 0,
+    ),
+    height: Math.max(
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight,
+      body?.clientHeight ?? 0,
+      body?.scrollHeight ?? 0,
+      body?.offsetHeight ?? 0,
+    ),
   }
 }
 
@@ -132,6 +220,7 @@ export interface ButtonDockProps {
   style?: React.CSSProperties
   anchorClassName?: string
   anchorStyle?: React.CSSProperties
+  sessionStorageKey?: string
 }
 
 export function ButtonDock({
@@ -144,14 +233,19 @@ export function ButtonDock({
   style,
   anchorClassName,
   anchorStyle,
+  sessionStorageKey,
 }: ButtonDockProps) {
-  const { state, startDrag, commit, returnToDock } = useDockState()
+  const { state, startDrag, commit, returnToDock, restore } = useDockState()
   const rootRef = React.useRef<HTMLDivElement>(null)
   const placeholderRef = React.useRef<HTMLDivElement>(null)
+  const currentModeRef = React.useRef<DockMode>(state.mode)
+  const dragOriginModeRef = React.useRef<DockMode>('docked')
+  const restoredDocumentBoundsRef = React.useRef<ReturnType<typeof getDocumentBounds> | null>(null)
   const [placeholderSize, setPlaceholderSize] = React.useState<{ w: number; h: number } | null>(
     null,
   )
   const [isNearSnap, setIsNearSnap] = React.useState(false)
+  const [persistenceReadyKey, setPersistenceReadyKey] = React.useState<string | null>(null)
   const measuredRef = React.useRef(false)
 
   const isDocked = state.mode === 'docked'
@@ -159,6 +253,7 @@ export function ButtonDock({
   const isFloating = state.mode === 'floating'
   const isFixed = state.mode === 'fixed'
   const isDetached = !isDocked
+  currentModeRef.current = state.mode
 
   React.useLayoutEffect(() => {
     if (!isDocked) {
@@ -170,45 +265,84 @@ export function ButtonDock({
     setPlaceholderSize({ w: rootRef.current.offsetWidth, h: rootRef.current.offsetHeight })
   }, [isDocked])
 
+  React.useLayoutEffect(() => {
+    if (!sessionStorageKey) {
+      restoredDocumentBoundsRef.current = null
+      setPersistenceReadyKey(null)
+      return
+    }
+
+    try {
+      const restoredState = parsePersistedDockState(sessionStorage.getItem(sessionStorageKey))
+      if (restoredState) {
+        restoredDocumentBoundsRef.current =
+          restoredState.mode === 'floating' ? getDocumentBounds() : null
+        restore(restoredState)
+      }
+    } catch {
+      restoredDocumentBoundsRef.current = null
+    }
+
+    setPersistenceReadyKey(sessionStorageKey)
+  }, [restore, sessionStorageKey])
+
+  React.useEffect(() => {
+    if (!sessionStorageKey || persistenceReadyKey !== sessionStorageKey) return
+    const serialized = serializeDockState(state.mode, state.position)
+    if (!serialized) return
+
+    try {
+      sessionStorage.setItem(sessionStorageKey, serialized)
+    } catch {
+      // Storage can be disabled or full; the dock remains fully functional.
+    }
+  }, [persistenceReadyKey, sessionStorageKey, state])
+
   // Post-commit boundary clamp — correct position using actual rendered size
   // before the browser paints (runs synchronously after commit re-render).
   React.useLayoutEffect(() => {
     if (isDragging || isDocked || !state.position || !rootRef.current) return
     const { width: w, height: h } = rootRef.current.getBoundingClientRect()
     if (w === 0) return
-    const MARGIN = 8
-    const clampV = (vx: number, vy: number) => ({
-      x: Math.max(MARGIN, Math.min(vx, window.innerWidth - w - MARGIN)),
-      y: Math.max(MARGIN, Math.min(vy, window.innerHeight - h - MARGIN)),
-    })
-    if (isFixed) {
-      const { x: cx, y: cy } = clampV(state.position.x, state.position.y)
-      if (
-        Math.round(cx) !== Math.round(state.position.x) ||
-        Math.round(cy) !== Math.round(state.position.y)
-      ) {
-        commit({ x: cx, y: cy }, 'fixed')
-      }
-    } else if (isFloating) {
-      const vx = state.position.x - window.scrollX,
-        vy = state.position.y - window.scrollY
-      const { x: cx, y: cy } = clampV(vx, vy)
-      if (Math.round(cx) !== Math.round(vx) || Math.round(cy) !== Math.round(vy)) {
-        commit({ x: cx + window.scrollX, y: cy + window.scrollY }, 'floating')
-      }
+    const documentBounds = restoredDocumentBoundsRef.current ?? getDocumentBounds()
+    const bounds = isFixed
+      ? { width: window.innerWidth, height: window.innerHeight }
+      : { width: window.innerWidth, height: documentBounds.height }
+    const positionForClamp = isFixed
+      ? state.position
+      : { x: state.position.x - window.scrollX, y: state.position.y }
+    const boundedPosition = clampPositionToBounds(
+      positionForClamp,
+      { width: w, height: h },
+      bounds,
+    )
+    const clamped = isFixed
+      ? boundedPosition
+      : { x: boundedPosition.x + window.scrollX, y: boundedPosition.y }
+
+    if (
+      Math.round(clamped.x) !== Math.round(state.position.x) ||
+      Math.round(clamped.y) !== Math.round(state.position.y)
+    ) {
+      commit(clamped, isFixed ? 'fixed' : 'floating')
+      return
     }
+
+    restoredDocumentBoundsRef.current = null
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.position, state.mode])
 
   const handleDragStart = React.useCallback(
     (pos: Position) => {
+      dragOriginModeRef.current = currentModeRef.current
       startDrag(pos)
     },
     [startDrag],
   )
 
   const handleDragEnd = React.useCallback(
-    (viewportPos: Position, mode: DockMode) => {
+    (viewportPos: Position) => {
+      const mode = resolveDropMode(dragOriginModeRef.current)
       commit(
         mode === 'fixed'
           ? viewportPos

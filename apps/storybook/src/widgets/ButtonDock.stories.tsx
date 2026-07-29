@@ -82,3 +82,18 @@ export const BlockEnd: Story = {
     </div>
   ),
 }
+
+export const PersistedSession: Story = {
+  parameters: { layout: 'fullscreen' },
+  args: {
+    layout: 'block',
+    align: 'center',
+    sessionStorageKey: 'storybook-button-dock-session',
+    showMode: true,
+  },
+  render: (args) => (
+    <div style={{ minHeight: '150vh', padding: '2rem' }}>
+      <LayoutDock {...args} />
+    </div>
+  ),
+}

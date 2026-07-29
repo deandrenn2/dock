@@ -13,7 +13,23 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal: (config) => {
+    config.server ??= {}
+    config.server.headers = {
+      ...config.server.headers,
+      'Cache-Control': 'no-store',
+    }
+    config.server.watch = {
+      ...config.server.watch,
+      usePolling: true,
+      interval: 100,
+    }
+    config.optimizeDeps ??= {}
+    config.optimizeDeps.exclude = [
+      ...(config.optimizeDeps.exclude ?? []),
+      '@deandre-dock/buttons',
+    ]
     config.resolve ??= {}
+    config.resolve.extensions = ['.ts', '.tsx', '.mjs', '.js', '.jsx', '.json']
     config.resolve.alias = {
       ...config.resolve.alias,
       '@deandre-dock/buttons': resolve(__dirname, '../../../packages/core/src/index.ts'),

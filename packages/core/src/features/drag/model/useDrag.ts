@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 import type { RefObject } from 'react'
-import type { DockMode, Position } from '../../position/model/types'
+import type { Position } from '../../position/model/types'
 
 type SavedStyles = {
   position: string
@@ -25,7 +25,7 @@ type UseDragOptions = {
   rootRef: RefObject<HTMLElement | null>
   placeholderRef?: RefObject<HTMLElement | null>
   onDragStart: (initialViewportPos: Position) => void
-  onDragEnd: (viewportPos: Position, mode: DockMode) => void
+  onDragEnd: (viewportPos: Position) => void
   onReturnToDock: () => void
   onSnapChange?: (isNear: boolean) => void
 }
@@ -153,12 +153,7 @@ export function useDrag({
       dockH,
     )
 
-    const nearEdge =
-      vx < 48 || vy < 48 ||
-      vx > window.innerWidth - 220 ||
-      vy > window.innerHeight - 80
-
-    onDragEndRef.current({ x: vx, y: vy }, nearEdge ? 'fixed' : 'floating')
+    onDragEndRef.current({ x: vx, y: vy })
   })
 
   const onPointerDown = useCallback(

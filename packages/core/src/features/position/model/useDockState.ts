@@ -5,6 +5,7 @@ type Action =
   | { type: 'START_DRAG'; position: Position }
   | { type: 'COMMIT'; position: Position; mode: DockMode }
   | { type: 'RETURN_TO_DOCK' }
+  | { type: 'RESTORE'; state: DockState }
 
 function reducer(state: DockState, action: Action): DockState {
   switch (action.type) {
@@ -14,6 +15,8 @@ function reducer(state: DockState, action: Action): DockState {
       return { mode: action.mode, position: action.position }
     case 'RETURN_TO_DOCK':
       return { mode: 'docked', position: null }
+    case 'RESTORE':
+      return action.state
     default:
       return state
   }
@@ -36,5 +39,9 @@ export function useDockState() {
     dispatch({ type: 'RETURN_TO_DOCK' })
   }, [])
 
-  return { state, startDrag, commit, returnToDock }
+  const restore = useCallback((state: DockState) => {
+    dispatch({ type: 'RESTORE', state })
+  }, [])
+
+  return { state, startDrag, commit, returnToDock, restore }
 }

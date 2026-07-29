@@ -5,11 +5,7 @@ import cssInjectedByJs from 'vite-plugin-css-injected-by-js'
 import { resolve } from 'path'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    dts({ include: ['src'], rollupTypes: true }),
-    cssInjectedByJs(),
-  ],
+  plugins: [react(), dts({ include: ['src'], rollupTypes: true }), cssInjectedByJs()],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
@@ -26,5 +22,8 @@ export default defineConfig({
       },
     },
     cssCodeSplit: false,
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx', '.json'],
   },
 })

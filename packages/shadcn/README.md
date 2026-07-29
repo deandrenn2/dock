@@ -36,7 +36,7 @@ import { ButtonDock } from '@/components/ui/button-dock'
 export function MyPage() {
   return (
     <div>
-      <ButtonDock layout="block" align="end">
+      <ButtonDock layout="block" align="end" sessionStorageKey="my-page-actions">
         <Button onClick={save}>Save</Button>
         <Button variant="outline">Export</Button>
         <Button variant="destructive" size="icon" aria-label="Delete">
@@ -56,17 +56,22 @@ export function MyPage() {
 
 ### `ButtonDock`
 
-| Prop              | Type                           | Default    | Description                                 |
-| ----------------- | ------------------------------ | ---------- | ------------------------------------------- |
-| `children`        | `ReactNode`                    | —          | Buttons to render                           |
-| `showMode`        | `boolean`                      | `false`    | Dev badge showing the current dock mode     |
-| `zIndex`          | `number`                       | —          | Stacking level while the dock is detached   |
-| `layout`          | `"inline" \| "block"`          | `"inline"` | Inline origin or full-width layout anchor   |
-| `align`           | `"start" \| "center" \| "end"` | `"start"`  | Logical alignment inside the anchor         |
-| `className`       | `string`                       | —          | Layout classes applied to the visual dock   |
-| `style`           | `CSSProperties`                | —          | Inline styles applied to the visual dock    |
-| `anchorClassName` | `string`                       | —          | Layout classes applied to the origin anchor |
-| `anchorStyle`     | `CSSProperties`                | —          | Inline styles applied to the origin anchor  |
+| Prop                | Type                           | Default    | Description                                        |
+| ------------------- | ------------------------------ | ---------- | -------------------------------------------------- |
+| `children`          | `ReactNode`                    | —          | Buttons to render                                  |
+| `showMode`          | `boolean`                      | `false`    | Dev badge showing the current dock mode            |
+| `zIndex`            | `number`                       | —          | Stacking level while the dock is detached          |
+| `layout`            | `"inline" \| "block"`          | `"inline"` | Inline origin or full-width layout anchor          |
+| `align`             | `"start" \| "center" \| "end"` | `"start"`  | Logical alignment inside the anchor                |
+| `className`         | `string`                       | —          | Layout classes applied to the visual dock          |
+| `style`             | `CSSProperties`                | —          | Inline styles applied to the visual dock           |
+| `anchorClassName`   | `string`                       | —          | Layout classes applied to the origin anchor        |
+| `anchorStyle`       | `CSSProperties`                | —          | Inline styles applied to the origin anchor         |
+| `sessionStorageKey` | `string`                       | —          | Persist mode and position for this browser session |
+
+When `sessionStorageKey` is present, restored fixed positions are constrained to the
+viewport on every side. Floating positions use the viewport width and the full document
+height.
 
 ---
 
@@ -74,9 +79,10 @@ export function MyPage() {
 
 | Action                             | Result                                    |
 | ---------------------------------- | ----------------------------------------- |
-| Drag handle `⠿`, release in center | **floating** — moves with page scroll     |
-| Drag handle `⠿`, release near edge | **fixed** — pinned to viewport            |
-| Double-tap handle                  | **docked** — returns to original position |
+| Drag a docked or floating dock | **floating** — remains inside its bounds     |
+| Use the pin control            | Toggles explicitly between floating/fixed   |
+| Drag an already fixed dock     | **fixed** — changes position, not mode       |
+| Double-tap handle              | **docked** — returns to original position   |
 
 ---
 

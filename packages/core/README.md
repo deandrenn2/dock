@@ -27,7 +27,7 @@ In data-heavy interfaces — tables, long forms, dashboards — action buttons l
 ## Features
 
 - **4 dock states** — `docked` → `dragging` → `floating` → `fixed`
-- **Auto-snap to edges** — releasing near the viewport border switches to `fixed` mode
+- **Explicit pinning** — use the pin control to switch between `floating` and `fixed`
 - **Double-tap to return** — snaps back to the original DOM position
 - **Fully themeable** — CSS custom properties via `ThemeProvider`
 - **No stylesheet import** — CSS is auto-injected when the package is loaded
@@ -63,7 +63,7 @@ export function App() {
 export function MyPage() {
   return (
     <div>
-      <ButtonDock layout="block" align="end">
+      <ButtonDock layout="block" align="end" sessionStorageKey="my-page-actions">
         <Button variant="primary" leftIcon={<SaveIcon />} onClick={save}>
           Save
         </Button>
@@ -101,20 +101,25 @@ export function MyPage() {
 
 ### `<ButtonDock>`
 
-| Prop              | Type                           | Default    | Description                                |
-| ----------------- | ------------------------------ | ---------- | ------------------------------------------ |
-| `children`        | `ReactNode`                    | —          | Buttons to display                         |
-| `showMode`        | `boolean`                      | `false`    | Dev badge showing the current dock mode    |
-| `zIndex`          | `number`                       | —          | Stacking level while the dock is detached  |
-| `layout`          | `'inline' \| 'block'`          | `'inline'` | Inline origin or full-width layout anchor  |
-| `align`           | `'start' \| 'center' \| 'end'` | `'start'`  | Logical alignment inside the anchor        |
-| `className`       | `string`                       | —          | Class applied to the visual dock           |
-| `style`           | `CSSProperties`                | —          | Inline styles applied to the visual dock   |
-| `anchorClassName` | `string`                       | —          | Class applied to the layout anchor         |
-| `anchorStyle`     | `CSSProperties`                | —          | Inline styles applied to the layout anchor |
+| Prop                | Type                           | Default    | Description                                        |
+| ------------------- | ------------------------------ | ---------- | -------------------------------------------------- |
+| `children`          | `ReactNode`                    | —          | Buttons to display                                 |
+| `showMode`          | `boolean`                      | `false`    | Dev badge showing the current dock mode            |
+| `zIndex`            | `number`                       | —          | Stacking level while the dock is detached          |
+| `layout`            | `'inline' \| 'block'`          | `'inline'` | Inline origin or full-width layout anchor          |
+| `align`             | `'start' \| 'center' \| 'end'` | `'start'`  | Logical alignment inside the anchor                |
+| `className`         | `string`                       | —          | Class applied to the visual dock                   |
+| `style`             | `CSSProperties`                | —          | Inline styles applied to the visual dock           |
+| `anchorClassName`   | `string`                       | —          | Class applied to the layout anchor                 |
+| `anchorStyle`       | `CSSProperties`                | —          | Inline styles applied to the layout anchor         |
+| `sessionStorageKey` | `string`                       | —          | Persist mode and position for this browser session |
 
 `align` is most useful with `layout="block"`. The logical values `start` and `end`
 also adapt to right-to-left interfaces.
+
+Providing `sessionStorageKey` enables persistence. Restored `fixed` coordinates are
+clamped to the viewport on every side. Restored `floating` coordinates use the viewport
+width and the full document height. Use a unique key for each dock.
 
 ### `<Button>`
 
@@ -129,11 +134,11 @@ also adapt to right-to-left interfaces.
 
 ### Dock States
 
-| State      | Behavior                                              |
-| ---------- | ----------------------------------------------------- |
-| `docked`   | Original DOM position — participates in normal layout |
-| `floating` | Absolutely positioned — follows page scroll           |
-| `fixed`    | Pinned to viewport — scroll doesn't move it           |
+| State      | Behavior                                                  |
+| ---------- | --------------------------------------------------------- |
+| `docked`   | Original DOM position — participates in normal layout     |
+| `floating` | Absolutely positioned — follows page scroll               |
+| `fixed`    | Pinned to viewport — scroll and later drags keep it fixed |
 
 ---
 

@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "noEmit": true,
     "paths": {
       "@deandre-dock/buttons": ["../../packages/core/src/index.ts"],
       "@deandre-dock/shadcn/*": ["../../packages/shadcn/src/*"],

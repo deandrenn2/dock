@@ -39,14 +39,20 @@ export function HomePage() {
       </section>
 
       <section className={styles.demo}>
-        <h2 className={styles.sectionTitle}>ButtonDock — pruébalo aquí</h2>
+        <h2 className={styles.sectionTitle}>ButtonDock — pruébalo aquí --</h2>
         <p className={styles.hint}>
           Arrastra el handle <strong>⠿</strong> para mover la barra · Usa el botón 🏠 o suéltala en
-          su lugar para volver
+          su lugar para volver · Recarga esta página para comprobar que conserva su estado y
+          posición durante la sesión
         </p>
 
         <div className={styles.dockZone}>
-          <ButtonDock layout="block" align="center" showMode>
+          <ButtonDock
+            layout="block"
+            align="end"
+            sessionStorageKey="demo-home-button-dock"
+            showMode
+          >
             <Button variant="primary" leftIcon={<GenerateIcon />}>
               Generar
             </Button>
