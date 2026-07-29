@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@dock/buttons — Demo</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script>
       // Restore path from 404.html SPA redirect
       ;(function () {
         var s = window.location.search
         if (s.length > 1 && s[1] === '/') {
           var parts = s.slice(2).split('~')
+          var basePath = window.location.pathname.replace(/\/$/, '')
           window.history.replaceState(
             null, null,
-            window.location.pathname + '/' + parts[0] +
+            basePath + '/' + parts[0] +
             (parts[1] ? '?' + parts[1] : '') +
             window.location.hash
           )
