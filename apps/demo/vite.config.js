@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 export default defineConfig({
     plugins: [react()],
-    base: process.env['NODE_ENV'] === 'production' ? '/dock/' : '/',
+    base: process.env['NODE_ENV'] === 'production' ? '/dock-buttons/' : '/',
     server: {
         port: process.env['PORT'] ? parseInt(process.env['PORT']) : 5173,
         strictPort: true,
