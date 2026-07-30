@@ -118,19 +118,32 @@ if (!releaseWorkflow.includes('publish: pnpm changeset publish')) {
   errors.push('.github/workflows/release.yml: expected Changesets publish command')
 }
 
-const activeExtensions = new Set(['.md', '.json', '.yml', '.yaml', '.ts', '.tsx', '.js', '.html'])
-const activeFiles = execFileSync('git', ['ls-files', '-z'], {
+const trackedFiles = execFileSync('git', ['ls-files', '-z'], {
   cwd: repoRoot,
   encoding: 'utf8',
 })
   .split('\0')
   .filter(Boolean)
-  .filter(
-    (file) =>
-      !file.startsWith('openspec/changes/archive/') &&
-      activeExtensions.has(extname(file)) &&
-      !file.endsWith('CHANGELOG.md'),
+
+const generatedDemoArtifacts = trackedFiles.filter(
+  (file) =>
+    file.startsWith('apps/demo/src/') &&
+    file !== 'apps/demo/src/vite-env.d.ts' &&
+    /\.(?:js|js\.map|d\.ts|d\.ts\.map)$/.test(file),
+)
+if (generatedDemoArtifacts.length > 0) {
+  errors.push(
+    `Generated demo artifacts can shadow TypeScript sources: ${generatedDemoArtifacts.join(', ')}`,
   )
+}
+
+const activeExtensions = new Set(['.md', '.json', '.yml', '.yaml', '.ts', '.tsx', '.js', '.html'])
+const activeFiles = trackedFiles.filter(
+  (file) =>
+    !file.startsWith('openspec/changes/archive/') &&
+    activeExtensions.has(extname(file)) &&
+    !file.endsWith('CHANGELOG.md'),
+)
 
 const oldRepositoryPattern = /https:\/\/github\.com\/deandrenn2\/dock(?!-buttons)(?:\.git|\/|$)/
 const oldDemoPattern = /https:\/\/deandrenn2\.github\.io\/dock(?!-buttons)(?:\/|$)/

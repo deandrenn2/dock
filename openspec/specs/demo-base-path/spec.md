@@ -29,6 +29,12 @@ El sitio SHALL incluir la documentación interactiva de Storybook bajo el sub-pa
 - **WHEN** el usuario activa el icono de GitHub en la barra de navegación
 - **THEN** se abre `https://github.com/deandrenn2/dock-buttons` en una pestaña nueva
 
+#### Scenario: Producción resuelve las fuentes TypeScript actuales
+
+- **WHEN** la demo se compila en un runner Linux limpio
+- **THEN** los archivos JavaScript y declaraciones generados no ocultan fuentes de `apps/demo/src`
+- **AND** la navegación publicada coincide con la implementación TypeScript actual
+
 ## Requirement: README no rompe Jekyll
 
 El README.md SHALL renderizarse sin errores en un entorno Jekyll/Liquid.
