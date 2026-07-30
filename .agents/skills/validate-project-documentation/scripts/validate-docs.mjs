@@ -1,4 +1,5 @@
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import { existsSync, readFileSync } from 'node:fs'
 import { dirname, extname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -85,28 +86,19 @@ if (!releaseWorkflow.includes('publish: pnpm changeset publish')) {
   errors.push('.github/workflows/release.yml: expected Changesets publish command')
 }
 
-const ignoredDirectories = new Set(['.git', 'node_modules', 'dist', 'coverage'])
 const activeExtensions = new Set(['.md', '.json', '.yml', '.yaml', '.ts', '.tsx', '.js', '.html'])
-const activeFiles = []
-
-const collectActiveFiles = (directory) => {
-  for (const entry of readdirSync(directory)) {
-    const absolutePath = join(directory, entry)
-    const relativePath = absolutePath.slice(repoRoot.length + 1).replaceAll('\\', '/')
-    if (ignoredDirectories.has(entry) || relativePath.startsWith('openspec/changes/archive/')) {
-      continue
-    }
-
-    const stats = statSync(absolutePath)
-    if (stats.isDirectory()) {
-      collectActiveFiles(absolutePath)
-    } else if (activeExtensions.has(extname(entry)) && !entry.endsWith('CHANGELOG.md')) {
-      activeFiles.push(relativePath)
-    }
-  }
-}
-
-collectActiveFiles(repoRoot)
+const activeFiles = execFileSync('git', ['ls-files', '-z'], {
+  cwd: repoRoot,
+  encoding: 'utf8',
+})
+  .split('\0')
+  .filter(Boolean)
+  .filter(
+    (file) =>
+      !file.startsWith('openspec/changes/archive/') &&
+      activeExtensions.has(extname(file)) &&
+      !file.endsWith('CHANGELOG.md'),
+  )
 
 const oldRepositoryPattern = /https:\/\/github\.com\/deandrenn2\/dock(?!-buttons)(?:\.git|\/|$)/
 const oldDemoPattern = /https:\/\/deandrenn2\.github\.io\/dock(?!-buttons)(?:\/|$)/
