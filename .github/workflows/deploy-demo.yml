@@ -7,7 +7,10 @@ on:
     paths:
       - .github/workflows/deploy-demo.yml
       - apps/demo/**
+      - apps/storybook/**
       - packages/core/**
+      - package.json
+      - pnpm-lock.yaml
 
 concurrency:
   group: deploy-demo-${{ github.ref }}
@@ -42,8 +45,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build demo
-        run: pnpm build:demo
+      - name: Build demo and Storybook
+        run: pnpm build:site
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

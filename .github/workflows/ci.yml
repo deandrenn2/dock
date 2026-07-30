@@ -47,4 +47,4 @@ jobs:
         run: pnpm build:demo
 
       - name: Build Storybook
-        run: pnpm --filter storybook build-storybook
+        run: pnpm --filter dock-storybook build-storybook

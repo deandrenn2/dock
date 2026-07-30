@@ -12,6 +12,8 @@ pnpm dev:storybook     # Storybook at http://localhost:6006
 # Build
 pnpm build:core        # Build the @deandre-dock/buttons library
 pnpm build:demo        # Build the demo application
+pnpm build:storybook   # Build Storybook as a standalone static site
+pnpm build:site        # Build the GitHub Pages artifact (demo + Storybook)
 
 # Quality
 pnpm test              # Run Vitest (core package)
@@ -33,7 +35,7 @@ packages/
   shadcn/      @deandre-dock/buttons-shadcn — Shadcn registry variant
 apps/
   demo/        Vite + React + Tailwind demo (gradebook UI)
-  storybook/   Storybook 8.6 component docs
+  storybook/   Storybook 8.2 component docs, published under /dock-buttons/storybook/
 ```
 
 All packages use `pnpm` (v11.7.0). The root `tsconfig.base.json` sets path alias `@deandre-dock/buttons` → `packages/core/src` for local development.

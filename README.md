@@ -11,10 +11,10 @@ Monorepo para el ecosistema `@deandre-dock/buttons` — un ButtonGroup flotante 
 
 ## Apps
 
-| App                                 | Descripción                                                                                     |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [`apps/demo`](apps/demo/)           | Demo pública en [deandrenn2.github.io/dock-buttons](https://deandrenn2.github.io/dock-buttons/) |
-| [`apps/storybook`](apps/storybook/) | Documentación interactiva de componentes                                                        |
+| App                                 | Descripción                                                                                                 |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| [`apps/demo`](apps/demo/)           | Demo pública en [deandrenn2.github.io/dock-buttons](https://deandrenn2.github.io/dock-buttons/)             |
+| [`apps/storybook`](apps/storybook/) | Documentación interactiva en [dock-buttons/storybook](https://deandrenn2.github.io/dock-buttons/storybook/) |
 
 ---
 
@@ -31,6 +31,9 @@ pnpm dev:demo
 
 # Iniciar Storybook
 pnpm dev:storybook
+
+# Compilar demo y Storybook como el sitio publicado
+pnpm build:site
 
 # Build de la librería
 pnpm build:core
@@ -65,6 +68,10 @@ pnpm build:core       # build antes de publicar
 ```
 
 CI crea una "Version Packages" PR automáticamente. Merge → publica a npm.
+
+GitHub Pages publica un único artefacto estático: la demo vive en `/dock-buttons/` y
+Storybook en `/dock-buttons/storybook/`. El workflow `.github/workflows/deploy-demo.yml`
+reconstruye ambos cuando cambia la demo, Storybook, la librería o su configuración.
 
 La publicación usa npm Trusted Publishing mediante `.github/workflows/release.yml`.
 Los dos paquetes deben autorizar exactamente el repositorio `deandrenn2/dock-buttons`

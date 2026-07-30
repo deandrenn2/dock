@@ -5,9 +5,11 @@
   "description": "Monorepo for @deandre-dock/buttons — an innovative floating button group design system",
   "scripts": {
     "dev:demo": "pnpm --filter demo dev",
-    "dev:storybook": "pnpm --filter storybook storybook",
+    "dev:storybook": "pnpm --filter dock-storybook storybook",
     "build:core": "pnpm --filter @deandre-dock/buttons build",
     "build:demo": "pnpm --filter demo build",
+    "build:storybook": "pnpm --filter dock-storybook build-storybook",
+    "build:site": "pnpm build:demo && pnpm --filter dock-storybook exec storybook build --output-dir ../demo/dist/storybook",
     "test": "pnpm --filter @deandre-dock/buttons test",
     "lint": "eslint . --ext .ts,.tsx",
     "docs:check": "node .agents/skills/validate-project-documentation/scripts/validate-docs.mjs",

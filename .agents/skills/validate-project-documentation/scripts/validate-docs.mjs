@@ -9,6 +9,7 @@ const errors = []
 
 const canonicalRepository = 'https://github.com/deandrenn2/dock-buttons'
 const canonicalDemo = 'https://deandrenn2.github.io/dock-buttons/'
+const canonicalStorybook = `${canonicalDemo}storybook/`
 
 const requiredFiles = [
   'README.md',
@@ -20,6 +21,7 @@ const requiredFiles = [
   'apps/demo/vite.config.ts',
   'apps/demo/public/404.html',
   'openspec/specs/demo-base-path/spec.md',
+  '.github/workflows/deploy-demo.yml',
   '.github/workflows/release.yml',
 ]
 
@@ -76,6 +78,36 @@ if (!viteConfig.includes("'/dock-buttons/'")) {
 const spaFallback = read('apps/demo/public/404.html')
 if (!spaFallback.includes("var base = '/dock-buttons'")) {
   errors.push("apps/demo/public/404.html: SPA fallback must use '/dock-buttons'")
+}
+
+const rootReadme = read('README.md')
+if (!rootReadme.includes(canonicalStorybook)) {
+  errors.push(`README.md: must link to the published Storybook at ${canonicalStorybook}`)
+}
+
+const rootPackage = JSON.parse(read('package.json'))
+const navbar = read('apps/demo/src/widgets/navbar/index.tsx')
+if (!navbar.includes(canonicalRepository)) {
+  errors.push(`apps/demo/src/widgets/navbar/index.tsx: must link to ${canonicalRepository}`)
+}
+if (!navbar.includes('storybook/')) {
+  errors.push('apps/demo/src/widgets/navbar/index.tsx: must link to the Storybook sub-path')
+}
+
+const deployWorkflow = read('.github/workflows/deploy-demo.yml')
+if (!deployWorkflow.includes('apps/storybook/**')) {
+  errors.push('.github/workflows/deploy-demo.yml: Storybook changes must trigger deployment')
+}
+if (!deployWorkflow.includes('pnpm build:site')) {
+  errors.push('.github/workflows/deploy-demo.yml: expected combined demo and Storybook build')
+}
+
+if (
+  rootPackage.scripts?.['dev:storybook'] !== 'pnpm --filter dock-storybook storybook' ||
+  rootPackage.scripts?.['build:storybook'] !== 'pnpm --filter dock-storybook build-storybook' ||
+  !rootPackage.scripts?.['build:site']?.includes('--filter dock-storybook')
+) {
+  errors.push('package.json: Storybook scripts must target the dock-storybook workspace')
 }
 
 const releaseWorkflow = read('.github/workflows/release.yml')
